@@ -13,3 +13,5 @@ xmltodict==0.11.0
 coreapi==2.3.3
 django-rest-swagger==2.2.0
 django-filter==1.1.0
+git+https://github.com/InformedSolutions/OFS-MORE-Identity-Gateway.git@feat/pip_install_models#subdirectory=identity_models
+

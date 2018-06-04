@@ -1,12 +1,43 @@
+import os
 from uuid import uuid4
 
+from django.contrib.sites import requests
+from django.core import serializers
 from django.db import models
+
+
+class ApiCalls(models.Manager):
+
+    identity_prefix = os.environ.get('APP_IDENTITY_URL')
+
+    def get_record(self, email=None, pk=None, magic_link=None):
+        if email != None:
+            query_url = self.identity_prefix + '/api/v1/email' + email
+        if pk != None:
+            query_url = self.identity_prefix + '/api/v1/user' + pk
+        if magic_link != None:
+            query_url = self.identity_prefix + '/api/v1/magic_link' + magic_link
+
+        response = requests.get(query_url)
+
+        print(response)
+
+
+
+
+    def __deserialize(self):
+        user_generator = serializers.json.Deserializer(self.response.POST['data'])
+
 
 class UserDetails(models.Model):
     """
     login_id:
     Test
     """
+    # Managers
+    objects = models.Manager()
+    api = ApiCalls()
+
     login_id = models.UUIDField(primary_key=True, default=uuid4, help_text="Unique UUID4 Identifier")
     #application_id = models.ForeignKey(Application, on_delete=models.CASCADE, db_column='application_id', default=uuid4)
     email = models.CharField(max_length=100, blank=True, help_text="The Email Address of the applicant, using the following regex:"
