@@ -6,9 +6,6 @@ REQUEST_TIMEOUT = os.environ.get('REQUEST_TIMEOUT', 60)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
-
-
 # Application definition
 
 BUILTIN_APPS = [
@@ -27,7 +24,6 @@ THIRD_PARTY_APPS = [
 
 PROJECT_APPS = [
     'application',
-    'identity_models'
 ]
 
 
