@@ -25,8 +25,6 @@ schema_view = get_swagger_view(title='OFS-MORE Identity Service')
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
 router.register(r'api/v1/user', views.UserViewSet)
-router.register(r'api/v1/magic_link', views.MagicLinkViewSet)
-router.register(r'api/v1/email', views.EmailViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
