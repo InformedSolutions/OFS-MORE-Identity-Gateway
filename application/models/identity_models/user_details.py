@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 
@@ -12,21 +13,22 @@ class ApiCalls(models.Manager):
 
     identity_prefix = os.environ.get('APP_IDENTITY_URL')
 
-    def get_record(self, email=None, pk=None, magic_link_email=None, magic_link_sms=None):
+    def get_record(self, email=None, pk=None, magic_link_email=None, magic_link_sms=None):  # Get a list of records by query.
         if email is not None:
             query_url = self.identity_prefix + 'api/v1/user/?email=' + email
         elif pk is not None:
-            query_url = self.identity_prefix + 'api/v1/user?login_id' + pk
+            query_url = self.identity_prefix + 'api/v1/user?login_id=' + pk
         elif magic_link_email is not None:
-            query_url = self.identity_prefix + 'api/v1/user?magic_link_email' + magic_link_email
+            query_url = self.identity_prefix + 'api/v1/user?magic_link_email=' + magic_link_email
         elif magic_link_sms is not None:
-            query_url = self.identity_prefix + 'api/v1/user?magic_link_sms' + magic_link_sms
+            query_url = self.identity_prefix + 'api/v1/user?magic_link_sms=' + magic_link_sms
 
         response = requests.get(query_url)
+        response.record = json.loads(response.content)[0]
 
         return response
 
-    def create(self, **kwargs):
+    def create(self, **kwargs):  # Create a record.
         model_record = UserDetails()
         model_dict = model_to_dict(model_record)
         request_params = {**model_dict, **kwargs}
@@ -37,6 +39,9 @@ class ApiCalls(models.Manager):
 
         return response
 
+    def put(self, user_details_record, **kwargs):  # Update a record.
+        response = requests.put(self.identity_prefix + 'api/v1/user/' + user_details_record['login_id'] + '/', data=user_details_record)
+        return response
 
 
 class UserDetails(models.Model):
