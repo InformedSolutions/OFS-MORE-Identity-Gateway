@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import re
+
+from django.conf import settings
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
@@ -31,3 +34,10 @@ urlpatterns = [
     url(r'^schema/$', schema_view),
     url(r'^', include(router.urls))
 ]
+
+if settings.URL_PREFIX:
+    prefixed_url_pattern = []
+    for pat in urlpatterns:
+        pat.regex = re.compile(r"^%s/%s" % (settings.URL_PREFIX[1:], pat.regex.pattern[1:]))
+        prefixed_url_pattern.append(pat)
+    urlpatterns = prefixed_url_pattern
