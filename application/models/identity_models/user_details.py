@@ -15,7 +15,6 @@ class ApiCalls(models.Manager):
     def get_record(self, email=None, pk=None, magic_link_email=None, magic_link_sms=None):
         if email is not None:
             query_url = self.identity_prefix + 'api/v1/user/?email=' + email
-            print(query_url)
         elif pk is not None:
             query_url = self.identity_prefix + 'api/v1/user?login_id' + pk
         elif magic_link_email is not None:
