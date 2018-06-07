@@ -24,7 +24,11 @@ class ApiCalls(models.Manager):
             query_url = self.identity_prefix + 'api/v1/user?magic_link_sms=' + magic_link_sms
 
         response = requests.get(query_url)
-        response.record = json.loads(response.content)[0]
+
+        if response.status_code == 200:
+            response.record = json.loads(response.content)[0]
+        else:
+            response.record = None
 
         return response
 
