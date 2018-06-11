@@ -4,7 +4,7 @@ with open("README", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ofs_models",
+    name="identity_models",
     version="0.0.1",
     author="Hugo Geeves",
     author_email="hugo.geeves@informed.com",

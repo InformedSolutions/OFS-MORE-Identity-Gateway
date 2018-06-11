@@ -1,16 +1,12 @@
-from rest_framework import mixins
+from rest_framework import viewsets
 from django_filters import rest_framework as filters
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.exceptions import NotFound
+from rest_framework.response import Response
 
-from identity_models.identity_models.user_details import UserDetails
-from identity_models.identity_models.serializers import UserDetailsSerializer
+from application.models import UserDetails, UserDetailsSerializer
 
 
-class UserViewSet(mixins.CreateModelMixin,
-                   mixins.RetrieveModelMixin,
-                   mixins.UpdateModelMixin,
-                   mixins.DestroyModelMixin,
-                   GenericViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
     list:
     List all current users stored in the database
@@ -31,17 +27,16 @@ class UserViewSet(mixins.CreateModelMixin,
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('login_id', 'email', 'magic_link_email', 'magic_link_sms')
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-class MagicLinkViewSet(mixins.RetrieveModelMixin,
-                       GenericViewSet):
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
 
-    queryset = UserDetails.objects.filter()
-    serializer_class = UserDetailsSerializer
-    lookup_field = 'magic_link_email'
+        if not queryset.exists():
+            raise NotFound(detail="Error 404, resource not found", code=404)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
-class EmailViewSet(mixins.RetrieveModelMixin,
-                   GenericViewSet):
-
-    queryset = UserDetails.objects.filter()
-    serializer_class = UserDetailsSerializer
-    lookup_field = 'email'
