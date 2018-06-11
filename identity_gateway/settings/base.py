@@ -25,9 +25,8 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
-    'application',
+    'application.apps.ApplicationConfig',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
