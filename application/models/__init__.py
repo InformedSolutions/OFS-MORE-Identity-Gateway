@@ -1,3 +1,3 @@
-from .identity_models.user_details import *
+from application.models.identity_models.user_details import *
 
 name = "identity_models"
