@@ -65,7 +65,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-URL_PREFIX = '/identity-gateway/'
+URL_PREFIX = '/identity-gateway'
 
 STATIC_URL = '/identity-gateway/static/'
 STATICFILES_DIRS = (
