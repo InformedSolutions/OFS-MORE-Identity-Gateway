@@ -13,7 +13,7 @@ class ApiCalls(models.Manager):
 
     identity_prefix = os.environ.get('APP_IDENTITY_URL')
 
-    def get_record(self, email=None, pk=None, magic_link_email=None, magic_link_sms=None):  # Get a list of records by query.
+    def get_record(self, email=None, pk=None, magic_link_email=None, magic_link_sms=None, application_id=None):  # Get a list of records by query.
         if email is not None:
             query_url = self.identity_prefix + 'api/v1/user/?email=' + email
         elif pk is not None:
@@ -22,6 +22,8 @@ class ApiCalls(models.Manager):
             query_url = self.identity_prefix + 'api/v1/user?magic_link_email=' + magic_link_email
         elif magic_link_sms is not None:
             query_url = self.identity_prefix + 'api/v1/user?magic_link_sms=' + magic_link_sms
+        elif application_id is not None:
+            query_url = self.identity_prefix + 'api/v1/user?application_id=' + application_id
 
         response = requests.get(query_url)
 
