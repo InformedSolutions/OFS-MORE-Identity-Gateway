@@ -6,8 +6,6 @@ REQUEST_TIMEOUT = os.environ.get('REQUEST_TIMEOUT', 60)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-URL_PREFIX = '/identity-gateway'
-
 # Application definition
 
 BUILTIN_APPS = [
@@ -67,7 +65,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-URL_PREFIX = '/identity-gateway'
+URL_PREFIX = '/identity-gateway/'
 
 STATIC_URL = '/identity-gateway/static/'
 STATICFILES_DIRS = (
@@ -75,6 +73,17 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+        'USER': os.environ.get('POSTGRES_USER', 'ofsted'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'OfstedB3ta'),
+        'HOST': os.environ.get('POSTGRES_HOST', '130.130.52.132'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5462')
+    }
+}
 
 # Test outputs
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
