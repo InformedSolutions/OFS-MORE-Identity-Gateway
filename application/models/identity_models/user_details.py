@@ -26,7 +26,7 @@ class ApiCalls(models.Manager):
         response = requests.get(query_url)
 
         if response.status_code == 200:
-            response.record = json.loads(response.content)[0]
+            response.record = json.loads(response.content.decode("utf-8"))[0]
         else:
             response.record = None
 
