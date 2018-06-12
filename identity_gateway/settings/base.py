@@ -55,6 +55,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'identity_gateway.wsgi.application'
 
+PUBLIC_APPLICATION_URL = os.environ.get('PUBLIC_APPLICATION_URL')
+
 LANGUAGE_CODE = 'en-GB'
 
 TIME_ZONE = 'Europe/London'
