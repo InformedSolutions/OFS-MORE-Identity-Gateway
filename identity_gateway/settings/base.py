@@ -3,6 +3,8 @@ import os
 # HTTP timeout value for interfacing with external
 REQUEST_TIMEOUT = os.environ.get('REQUEST_TIMEOUT', 60)
 
+PUBLIC_APPLICATION_URL = os.environ.get('PUBLIC_APPLICATION_URL', 'http://localhost:8000/identity-gateway')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
