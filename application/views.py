@@ -53,14 +53,4 @@ def summary_table(request, name, application_id):
             serializer = serializers[name]
             model = serializer.Meta.model
             records = model.objects.filter(application_id=application_id)
-            if name != "childcare_address":
-                return JsonResponse(serializer(records[0]).get_summary_table(), safe=False)
-            else:
-                summary_list = []
-                i = 1
-                summary_list.append(serializer().get_title_row())
-                for record in records:
-                    row = serializer(record).get_summary_table(i)
-                    summary_list.append(row)
-                    i += 1
-                return JsonResponse(summary_list, safe=False)
+            return JsonResponse(serializer(records[0]).get_summary_table(), safe=False)
