@@ -103,3 +103,21 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         model = UserDetails
         fields = ('login_id', 'email', 'mobile_number', 'add_phone_number', 'email_expiry_date', 'sms_expiry_date',
                   'magic_link_email', 'magic_link_sms', 'sms_resend_attempts', 'sms_resend_attempts_expiry_date', 'application_id')
+
+    def get_summary_table(self):
+        data = self.data
+        return [
+            {"title": "Your sign in details", "id": data['login_id']},
+            {"name": "Email",
+             "value": data['email'],
+             'pk': data['login_id'],
+             "reverse": "Change-Email"},
+            {"name": "Mobile phone number",
+             "value": data['mobile_number'],
+             'pk': data['login_id'],
+             "reverse": "Phone-Number"},
+            {"name": "Alternative phone number",
+             "value": data['add_phone_number'],
+             'pk': data['login_id'],
+             "reverse": "Phone-Number"}
+        ]

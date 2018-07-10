@@ -31,6 +31,8 @@ router.register(r'api/v1/user', views.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    url(r'^api/v1/summary/(?P<name>\w+)/(?P<application_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/$',
+        views.summary_table, name="Summary"),
     url(r'^schema/$', schema_view),
     url(r'^', include(router.urls))
 ]

@@ -2,8 +2,13 @@ from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from application.models import UserDetails, UserDetailsSerializer
+from django.http import JsonResponse
+
+
+serializers = {'user_details': UserDetailsSerializer}
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -40,3 +45,22 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+
+@api_view(['GET'])
+def summary_table(request, name, application_id):
+    if request.method == 'GET':
+        if name in serializers.keys():
+            serializer = serializers[name]
+            model = serializer.Meta.model
+            records = model.objects.filter(application_id=application_id)
+            if name != "childcare_address":
+                return JsonResponse(serializer(records[0]).get_summary_table(), safe=False)
+            else:
+                summary_list = []
+                i = 1
+                summary_list.append(serializer().get_title_row())
+                for record in records:
+                    row = serializer(record).get_summary_table(i)
+                    summary_list.append(row)
+                    i += 1
+                return JsonResponse(summary_list, safe=False)
