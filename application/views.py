@@ -27,6 +27,7 @@ class UserViewSet(viewsets.ModelViewSet):
     Delete the user with the corresponding primary key (login_id) from the database
 
     """
+    lookup_field = 'application_id'
     queryset = UserDetails.objects.all()
     serializer_class = UserDetailsSerializer
     filter_backends = (filters.DjangoFilterBackend,)
