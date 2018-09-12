@@ -14,7 +14,6 @@ RUN apt-get update && \
         && rm -rf /var/lib/apt/lists/*
 
 ADD requirements.txt /source/
-RUN mkdir /source/logs
 WORKDIR /source
 RUN pip install -r requirements.txt
 
