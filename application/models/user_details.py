@@ -61,15 +61,15 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         data = self.data
         return [
             {"title": "Your sign in details", "id": data['login_id']},
-            {"name": "Email",
+            {"name": "Your email",
              "value": data['email'],
              'pk': data['login_id'],
              "reverse": "Change-Email"},
-            {"name": "Mobile phone number",
+            {"name": "Your mobile number",
              "value": data['mobile_number'],
              'pk': data['login_id'],
              "reverse": "Phone-Number"},
-            {"name": "Alternative phone number",
+            {"name": "Other phone number",
              "value": data['add_phone_number'],
              'pk': data['login_id'],
              "reverse": "Phone-Number"}
