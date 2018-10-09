@@ -64,13 +64,16 @@ class UserDetailsSerializer(serializers.ModelSerializer):
             {"name": "Your email",
              "value": data['email'],
              'pk': data['login_id'],
-             "reverse": "Change-Email"},
+             "reverse": "Change-Email",
+             "change_link_description": "your email"},
             {"name": "Your mobile number",
              "value": data['mobile_number'],
              'pk': data['login_id'],
-             "reverse": "Phone-Number"},
+             "reverse": "Phone-Number",
+             "change_link_description": "your mobile number"},
             {"name": "Other phone number",
              "value": data['add_phone_number'],
              'pk': data['login_id'],
-             "reverse": "Phone-Number"}
+             "reverse": "Phone-Number",
+             "change_link_description": "your other phone number"}
         ]
