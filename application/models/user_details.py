@@ -16,6 +16,9 @@ class UserDetails(models.Model):
     application_id = models.UUIDField(db_column='application_id')
     email = models.CharField(max_length=100, blank=True, help_text="The Email Address of the applicant, using the following regex:"
                                                                    " ^(07\d{8,12}|447\d{7,11}|00447\d{7,11}|\+447\d{7,11})$")
+    change_email = models.CharField(max_length=100, blank=True,
+                             help_text="The Updated Email Address of the applicant, using the following regex:"
+                                       " ^(07\d{8,12}|447\d{7,11}|00447\d{7,11}|\+447\d{7,11})$")
     mobile_number = models.CharField(max_length=20, blank=True,
                                      help_text="The mobile number of the applicant, using following regex:"
                                                " ^([a-zA-Z0-9_\-\.']+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
@@ -55,7 +58,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDetails
         fields = ('login_id', 'email', 'mobile_number', 'add_phone_number', 'email_expiry_date', 'sms_expiry_date',
-                  'magic_link_email', 'magic_link_sms', 'sms_resend_attempts', 'sms_resend_attempts_expiry_date', 'application_id')
+                  'magic_link_email', 'magic_link_sms', 'sms_resend_attempts', 'sms_resend_attempts_expiry_date', 'application_id', 'change_email')
 
     def get_summary_table(self):
         data = self.data
