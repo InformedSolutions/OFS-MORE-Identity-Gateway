@@ -31,7 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = UserDetails.objects.all()
     serializer_class = UserDetailsSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('login_id', 'email', 'magic_link_email', 'magic_link_sms', 'application_id')
+    filter_fields = ('login_id', 'email', 'magic_link_email', 'magic_link_sms', 'application_id', 'service')
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
