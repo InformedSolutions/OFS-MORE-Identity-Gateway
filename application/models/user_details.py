@@ -13,7 +13,8 @@ class UserDetails(models.Model):
         ('CHILDMINDER', 'CHILDMINDER'),
         ('NANNY', 'NANNY'),
         ('NURSERY', 'NURSERY'),
-        ('SOCIAL_CARE', 'SOCIAL_CARE')
+        ('SOCIAL_CARE', 'SOCIAL_CARE'),
+        ('HOUSEHOLD_MEMBERS', 'HOUSEHOLD_MEMBERS')
     )
     # Managers
     objects = models.Manager()
