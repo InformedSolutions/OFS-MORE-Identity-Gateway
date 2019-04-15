@@ -9,6 +9,13 @@ class UserDetails(models.Model):
     login_id:
     Test
     """
+    APP_TYPE = (
+        ('CHILDMINDER', 'CHILDMINDER'),
+        ('NANNY', 'NANNY'),
+        ('NURSERY', 'NURSERY'),
+        ('SOCIAL_CARE', 'SOCIAL_CARE'),
+        ('HOUSEHOLD_MEMBERS', 'HOUSEHOLD_MEMBERS')
+    )
     # Managers
     objects = models.Manager()
 
@@ -30,6 +37,7 @@ class UserDetails(models.Model):
     magic_link_sms = models.CharField(max_length=100, blank=True, null=True, help_text="The magic link for sms access for TFA")
     sms_resend_attempts = models.IntegerField(default=0, blank=True, null=True, help_text="The amount of times the sms code has been resent")
     sms_resend_attempts_expiry_date = models.IntegerField(default=0, blank=True, null=True, help_text="The Linux Epoch Time after which a user can send sms's again after 3 sends")
+    service = models.CharField(choices=APP_TYPE, max_length=50, blank=True)
 
     @property
     def timelog_fields(self):
@@ -57,8 +65,7 @@ class UserDetails(models.Model):
 class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDetails
-        fields = ('login_id', 'email', 'mobile_number', 'add_phone_number', 'email_expiry_date', 'sms_expiry_date',
-                  'magic_link_email', 'magic_link_sms', 'sms_resend_attempts', 'sms_resend_attempts_expiry_date', 'application_id', 'change_email')
+        fields = '__all__'
 
     def get_summary_table(self):
         data = self.data
