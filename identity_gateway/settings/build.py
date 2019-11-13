@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 TEST_MODE = True
 
@@ -8,11 +8,9 @@ ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = "127.0.0.1"
 
 DEV_APPS = [
-  'debug_toolbar'
 ]
 
 MIDDLEWARE_DEV = [
-  'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 MIDDLEWARE = MIDDLEWARE + MIDDLEWARE_DEV
