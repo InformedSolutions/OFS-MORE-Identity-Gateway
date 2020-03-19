@@ -27,7 +27,7 @@ LOGGING = {
         },
   'handlers': {
     'django.server': {
-        'level': 'INFO',
+        'level': 'DEBUG',
         'class': 'logging.handlers.RotatingFileHandler',
         'maxBytes': 1 * 1024 * 1024,
         'filename': 'logs/output.log',
@@ -39,7 +39,7 @@ LOGGING = {
    'loggers': {
      'django.server': {
        'handlers': ['django.server'],
-         'level': 'INFO',
+         'level': 'DEBUG',
            'propagate': True,
       },
     },
